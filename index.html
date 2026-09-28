@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PlayStation Legacy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     LOADING SCREEN
+========================= -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-symbols">
+        <b>△</b><b>○</b><b>×</b><b>□</b>
+        <b>△</b><b>○</b><b>×</b><b>□</b>
+    </div>
+
+    <div class="loader-inner">
+
+        <p class="loader-label">LOADING THE LEGACY</p>
+
+        <div class="loader-ps" id="loaderPs">PS1</div>
+
+        <h2 class="loader-title" id="loaderTitle">PlayStation</h2>
+        <span class="loader-year" id="loaderYear">1994</span>
+
+        <div class="loader-steps" id="loaderSteps">
+            <span>PS1</span>
+            <span>PS2</span>
+            <span>PS3</span>
+            <span>PS4</span>
+            <span>PS5</span>
+        </div>
+
+        <div class="loader-bar">
+            <div class="loader-fill" id="loaderFill"></div>
+        </div>
+
+        <div class="loader-percent" id="loaderPercent">0%</div>
+
+        <button class="loader-skip" id="loaderSkip">Skip →</button>
+
+    </div>
+
+</div>
+
+
+<!-- LOADER SCRIPT (mandiri, tidak tergantung script.js) -->
+<script>
+(function () {
+
+    var loader = document.getElementById("loader");
+    if (!loader) return;
+
+    var ps      = document.getElementById("loaderPs");
+    var title   = document.getElementById("loaderTitle");
+    var year    = document.getElementById("loaderYear");
+    var fill    = document.getElementById("loaderFill");
+    var percent = document.getElementById("loaderPercent");
+    var skip    = document.getElementById("loaderSkip");
+    var steps   = document.querySelectorAll("#loaderSteps span");
+
+    var data = [
+        { ps: "PS1", title: "PlayStation",   year: "1994" },
+        { ps: "PS2", title: "PlayStation 2", year: "2000" },
+        { ps: "PS3", title: "PlayStation 3", year: "2006" },
+        { ps: "PS4", title: "PlayStation 4", year: "2013" },
+        { ps: "PS5", title: "PlayStation 5", year: "2020" }
+    ];
+
+    var DURATION  = 4000;   // durasi loading (ms)
+    var MAX_WAIT  = 10000;  // batas paksa selesai (ms)
+    var startTime = Date.now();
+    var current   = -1;
+    var finished  = false;
+    var pageReady = document.readyState === "complete";
+    var timer;
+
+    window.addEventListener("load", function () { pageReady = true; });
+
+    document.body.style.overflow = "hidden";
+
+    function setStep(i) {
+        current = i;
+
+        ps.textContent    = data[i].ps;
+        title.textContent = data[i].title;
+        year.textContent  = data[i].year;
+
+        [ps, title, year].forEach(function (el) {
+            el.classList.remove("swap");
+            void el.offsetWidth;
+            el.classList.add("swap");
+        });
+
+        for (var n = 0; n < steps.length; n++) {
+            steps[n].classList.toggle("done", n < i);
+            steps[n].classList.toggle("active", n === i);
+        }
+    }
+
+    function finish() {
+        if (finished) return;
+        finished = true;
+        clearInterval(timer);
+
+        fill.style.width = "100%";
+        percent.textContent = "100%";
+        setStep(data.length - 1);
+
+        setTimeout(function () {
+            loader.classList.add("hidden");
+            document.body.style.overflow = "";
+            setTimeout(function () { loader.remove(); }, 900);
+        }, 400);
+    }
+
+    function tick() {
+        var elapsed  = Date.now() - startTime;
+        var progress = Math.min(elapsed / DURATION, 1);
+
+        if (progress >= 1 && !pageReady && elapsed < MAX_WAIT) {
+            progress = 0.99;
+        }
+
+        var i = Math.min(Math.floor(progress * data.length), data.length - 1);
+        if (i !== current) setStep(i);
+
+        fill.style.width = (progress * 100) + "%";
+        percent.textContent = Math.floor(progress * 100) + "%";
+
+        if (progress >= 1) finish();
+    }
+
+    setStep(0);
+    timer = setInterval(tick, 40);
+    skip.addEventListener("click", finish);
+
+})();
+</script>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <span>PS</span>
+
+        <div>
+            <strong>PLAYSTATION</strong>
+            <small>LEGACY</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#generations">Generations</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#history">History &amp; Games</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <p class="hero-label">THE HISTORY OF GAMING</p>
+
+        <h1>
+            PLAYSTATION
+            <span>LEGACY</span>
+        </h1>
+
+        <p class="hero-description">
+            Menjelajahi perjalanan PlayStation dari generasi pertama
+            hingga PlayStation 5.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#generations" class="btn primary">Explore Generations</a>
+            <a href="#timeline" class="btn secondary">View Timeline</a>
+        </div>
+
+    </div>
+
+    <div class="hero-console">
+
+        <div class="console-glow"></div>
+
+        <div class="controller">
+
+            <div class="controller-top"></div>
+
+            <div class="controller-left">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="controller-right">
+                <b>△</b>
+                <b>○</b>
+                <b>×</b>
+                <b>□</b>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GENERATIONS
+========================= -->
+
+<section class="generations" id="generations">
+
+    <div class="section-title">
+
+        <p>CONSOLE GENERATIONS</p>
+
+        <h2>
+            The Evolution of
+            <span>PlayStation</span>
+        </h2>
+
+        <div class="line"></div>
+
+    </div>
+
+    <div class="console-grid">
+
+        <!-- PLAYSTATION 1 -->
+        <article class="console-card ps1">
+            <div class="generation-number">01</div>
+            <div class="console-image">
+                <img src="images/ps1.png" alt="PlayStation 1">
+            </div>
+            <div class="console-info">
+                <span>1994</span>
+                <h3>PlayStation</h3>
+                <p>
+                    Konsol pertama Sony yang mengubah dunia
+                    gaming dengan media CD.
+                </p>
+                <button class="details-btn" data-console="ps1">View Details →</button>
+            </div>
+        </article>
+
+        <!-- PLAYSTATION 2 -->
+        <article class="console-card ps2">
+            <div class="generation-number">02</div>
+            <div class="console-image">
+                <img src="images/ps2.png" alt="PlayStation 2">
+            </div>
+            <div class="console-info">
+                <span>2000</span>
+                <h3>PlayStation 2</h3>
+                <p>
+                    Salah satu konsol paling populer sepanjang
+                    sejarah video game.
+                </p>
+                <button class="details-btn" data-console="ps2">View Details →</button>
+            </div>
+        </article>
+
+        <!-- PLAYSTATION 3 -->
+        <article class="console-card ps3">
+            <div class="generation-number">03</div>
+            <div class="console-image">
+                <img src="images/ps3.png" alt="PlayStation 3">
+            </div>
+            <div class="console-info">
+                <span>2006</span>
+                <h3>PlayStation 3</h3>
+                <p>
+                    Membawa Blu-ray, HD gaming dan
+                    PlayStation Network.
+                </p>
+                <button class="details-btn" data-console="ps3">View Details →</button>
+            </div>
+        </article>
+
+        <!-- PLAYSTATION 4 -->
+        <article class="console-card ps4">
+            <div class="generation-number">04</div>
+            <div class="console-image">
+                <img src="images/ps4.png" alt="PlayStation 4">
+            </div>
+            <div class="console-info">
+                <span>2013</span>
+                <h3>PlayStation 4</h3>
+                <p>
+                    Generasi yang membawa gaming ke era
+                    sosial dan digital.
+                </p>
+                <button class="details-btn" data-console="ps4">View Details →</button>
+            </div>
+        </article>
+
+        <!-- PLAYSTATION 5 -->
+        <article class="console-card ps5">
+            <div class="generation-number">05</div>
+            <div class="console-image">
+                <img src="images/ps5.png" alt="PlayStation 5">
+            </div>
+            <div class="console-info">
+                <span>2020</span>
+                <h3>PlayStation 5</h3>
+                <p>
+                    Generasi terbaru dengan SSD ultra cepat,
+                    ray tracing dan DualSense.
+                </p>
+                <button class="details-btn" data-console="ps5">View Details →</button>
+            </div>
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TIMELINE
+========================= -->
+
+<section class="timeline-section" id="timeline">
+
+    <div class="section-title">
+
+        <p>FROM 1994 TO NOW</p>
+
+        <h2>
+            PlayStation
+            <span>Timeline</span>
+        </h2>
+
+    </div>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span>1994</span>
+                <h3>PlayStation 1</h3>
+                <p>
+                    Sony memasuki industri konsol dengan
+                    PlayStation generasi pertama.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span>2000</span>
+                <h3>PlayStation 2</h3>
+                <p>
+                    PS2 memperluas popularitas gaming
+                    dengan library game yang sangat besar.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span>2006</span>
+                <h3>PlayStation 3</h3>
+                <p>Era Blu-ray dan online gaming PlayStation.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span>2013</span>
+                <h3>PlayStation 4</h3>
+                <p>
+                    Fokus pada gaming, sharing dan
+                    pengalaman digital.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span>2020</span>
+                <h3>PlayStation 5</h3>
+                <p>
+                    SSD cepat dan DualSense menghadirkan
+                    pengalaman gaming generasi baru.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HISTORY & GAMES
+========================= -->
+
+<section class="history-section" id="history">
+
+    <div class="section-title">
+
+        <p>FROM THE BEGINNING</p>
+
+        <h2>
+            The Story of
+            <span>PlayStation</span>
+        </h2>
+
+        <div class="line"></div>
+
+    </div>
+
+
+    <!-- PS1 ORIGIN -->
+
+    <div class="origin-story">
+
+        <div class="origin-image">
+            <img src="images/ps1.png" alt="Original PlayStation">
+        </div>
+
+        <div class="origin-content">
+
+            <span class="story-year">1994 — THE BEGINNING</span>
+
+            <h3>Awal Mula PlayStation</h3>
+
+            <p>
+                Perjalanan PlayStation dimulai ketika konsol pertama
+                diluncurkan di Jepang pada 3 Desember 1994. Konsol ini
+                kemudian hadir di Amerika Utara pada 9 September 1995
+                dan Eropa pada 29 September 1995.
+            </p>
+
+            <p>
+                PlayStation membawa pendekatan baru ke dunia game
+                rumahan dengan penggunaan CD-ROM dan kemampuan
+                rendering 3D. Teknologi tersebut membantu menghadirkan
+                dunia game yang lebih kompleks dibanding banyak
+                pengalaman 2D sebelumnya.
+            </p>
+
+            <p>
+                Dari sinilah lahir berbagai seri yang kemudian menjadi
+                bagian penting dari sejarah PlayStation, seperti
+                Crash Bandicoot, Resident Evil, Final Fantasy VII,
+                Gran Turismo dan Tekken.
+            </p>
+
+            <div class="story-stats">
+                <div>
+                    <strong>1994</strong>
+                    <span>Japan Launch</span>
+                </div>
+                <div>
+                    <strong>32-BIT</strong>
+                    <span>CPU Architecture</span>
+                </div>
+                <div>
+                    <strong>CD-ROM</strong>
+                    <span>Game Media</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- GENERATION STORIES -->
+
+    <div class="generation-history">
+
+        <!-- PS1 -->
+        <article class="history-card">
+            <div class="history-card-image">
+                <img src="images/ps1.png" alt="PlayStation 1">
+            </div>
+            <div class="history-card-content">
+                <span>1994</span>
+                <h3>PlayStation 1</h3>
+                <p>
+                    Generasi pertama memperkenalkan PlayStation
+                    kepada dunia dan menjadi salah satu konsol
+                    penting dalam perkembangan game 3D.
+                </p>
+                <h4>Game Terkenal</h4>
+                <div class="game-list">
+                    <span>Crash Bandicoot</span>
+                    <span>Resident Evil</span>
+                    <span>Final Fantasy VII</span>
+                    <span>Gran Turismo</span>
+                    <span>Tekken 3</span>
+                    <span>Metal Gear Solid</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PS2 -->
+        <article class="history-card">
+            <div class="history-card-image">
+                <img src="images/ps2.png" alt="PlayStation 2">
+            </div>
+            <div class="history-card-content">
+                <span>2000</span>
+                <h3>PlayStation 2</h3>
+                <p>
+                    PS2 melanjutkan kesuksesan generasi pertama
+                    dengan dukungan DVD dan library game yang
+                    sangat luas.
+                </p>
+                <h4>Game Terkenal</h4>
+                <div class="game-list">
+                    <span>Grand Theft Auto: San Andreas</span>
+                    <span>God of War</span>
+                    <span>God of War II</span>
+                    <span>Gran Turismo 4</span>
+                    <span>Metal Gear Solid 3</span>
+                    <span>Kingdom Hearts</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PS3 -->
+        <article class="history-card">
+            <div class="history-card-image">
+                <img src="images/ps3.png" alt="PlayStation 3">
+            </div>
+            <div class="history-card-content">
+                <span>2006</span>
+                <h3>PlayStation 3</h3>
+                <p>
+                    PS3 membawa Blu-ray, layanan online dan
+                    hardware yang lebih kuat untuk pengalaman
+                    gaming HD.
+                </p>
+                <h4>Game Terkenal</h4>
+                <div class="game-list">
+                    <span>Uncharted 2</span>
+                    <span>The Last of Us</span>
+                    <span>God of War III</span>
+                    <span>LittleBigPlanet</span>
+                    <span>Metal Gear Solid 4</span>
+                    <span>Gran Turismo 5</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PS4 -->
+        <article class="history-card">
+            <div class="history-card-image">
+                <img src="images/ps4.png" alt="PlayStation 4">
+            </div>
+            <div class="history-card-content">
+                <span>2013</span>
+                <h3>PlayStation 4</h3>
+                <p>
+                    PS4 membawa PlayStation ke era yang semakin
+                    terhubung dengan fitur sharing, streaming
+                    dan game digital.
+                </p>
+                <h4>Game Terkenal</h4>
+                <div class="game-list">
+                    <span>God of War</span>
+                    <span>Marvel's Spider-Man</span>
+                    <span>Bloodborne</span>
+                    <span>The Last of Us Part II</span>
+                    <span>Ghost of Tsushima</span>
+                    <span>Uncharted 4</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PS5 -->
+        <article class="history-card">
+            <div class="history-card-image">
+                <img src="images/ps5.png" alt="PlayStation 5">
+            </div>
+            <div class="history-card-content">
+                <span>2020</span>
+                <h3>PlayStation 5</h3>
+                <p>
+                    PS5 memperkenalkan SSD berkecepatan tinggi,
+                    ray tracing dan controller DualSense dengan
+                    haptic feedback serta adaptive triggers.
+                </p>
+                <h4>Game Terkenal</h4>
+                <div class="game-list">
+                    <span>Demon's Souls</span>
+                    <span>Spider-Man: Miles Morales</span>
+                    <span>Ratchet &amp; Clank: Rift Apart</span>
+                    <span>Gran Turismo 7</span>
+                    <span>God of War Ragnarök</span>
+                    <span>Astro Bot</span>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about" id="about">
+
+    <div class="about-box">
+
+        <p>PLAYSTATION HISTORY</p>
+
+        <h2>
+            Five Generations.
+            <br>
+            One Legacy.
+        </h2>
+
+        <p class="about-text">
+            Dari era CD hingga SSD ultra cepat,
+            PlayStation terus berkembang mengikuti
+            perubahan teknologi dan budaya gaming.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-logo">PLAYSTATION</div>
+
+    <p>Fan-made educational website.</p>
+
+    <small>© 2026 PlayStation Legacy</small>
+
+</footer>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <button class="close-modal" id="closeModal">×</button>
+
+        <span id="modalYear">1994</span>
+
+        <h2 id="modalTitle">PlayStation</h2>
+
+        <p id="modalDescription">Description</p>
+
+        <div class="specs" id="modalSpecs"></div>
+
+    </div>
+
+</div>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

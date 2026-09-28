@@ -1,0 +1,1722 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* FIX: judul section tidak tertutup navbar */
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #050505;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    background: rgba(5, 5, 5, 0.75);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 1000;
+}
+
+/* Logo */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo > span {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    font-family: "Orbitron", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.logo div {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo strong {
+    font-family: "Orbitron", sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.logo small {
+    color: #777;
+    font-size: 9px;
+    letter-spacing: 4px;
+}
+
+/* Navigation */
+
+.navbar nav {
+    display: flex;
+    gap: 35px;
+}
+
+.navbar nav a {
+    position: relative;
+    color: #aaa;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: #ffffff;
+}
+
+.navbar nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile menu */
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 120px 8% 80px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 75% 50%,
+            rgba(40, 80, 255, 0.16),
+            transparent 30%
+        ),
+        #050505;
+}
+
+/* Grid background */
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    pointer-events: none;
+}
+
+/* Hero content */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+}
+
+.hero-label {
+    color: #777;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(45px, 7vw, 95px);
+    line-height: 0.95;
+    letter-spacing: -4px;
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    display: block;
+    background: linear-gradient(90deg, #ffffff, #777);
+
+    /* FIX: typo "backgroundclip" diperbaiki */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    max-width: 550px;
+    color: #999;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+/* Hero buttons */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 14px 24px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn.primary {
+    background: #ffffff;
+    color: #000000;
+}
+
+.btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.15);
+}
+
+.btn.secondary {
+    border: 1px solid #333;
+    color: #ffffff;
+}
+
+.btn.secondary:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+
+/* ========================================
+   HERO CONTROLLER
+======================================== */
+
+.hero-console {
+    width: 40%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.console-glow {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(60, 90, 255, 0.18);
+    filter: blur(70px);
+}
+
+/* Controller */
+
+.controller {
+    width: 330px;
+    height: 190px;
+    position: relative;
+    background: linear-gradient(145deg, #333, #111);
+    border-radius: 70px 70px 45px 45px;
+    box-shadow:
+        0 40px 70px rgba(0,0,0,0.7),
+        inset 0 2px 2px rgba(255,255,255,0.15);
+    transform: rotate(-8deg);
+}
+
+.controller-top {
+    position: absolute;
+    width: 110px;
+    height: 25px;
+    top: 20px;
+    left: 110px;
+    background: #181818;
+    border-radius: 20px;
+}
+
+/* Left buttons */
+
+.controller-left {
+    position: absolute;
+    left: 45px;
+    top: 80px;
+    width: 60px;
+    height: 60px;
+}
+
+.controller-left span {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #777;
+    border-radius: 3px;
+}
+
+.controller-left span:nth-child(1) { left: 21px; top: 0; }
+.controller-left span:nth-child(2) { left: 0;    top: 21px; }
+.controller-left span:nth-child(3) { left: 42px; top: 21px; }
+.controller-left span:nth-child(4) { left: 21px; top: 42px; }
+
+/* Right buttons */
+
+.controller-right {
+    position: absolute;
+    right: 45px;
+    top: 80px;
+    width: 70px;
+    height: 60px;
+}
+
+.controller-right b {
+    position: absolute;
+    font-size: 17px;
+    color: #aaa;
+}
+
+.controller-right b:nth-child(1) { left: 26px; top: 0; }
+.controller-right b:nth-child(2) { right: 0;   top: 20px; }
+.controller-right b:nth-child(3) { left: 26px; bottom: 0; }
+.controller-right b:nth-child(4) { left: 0;    top: 20px; }
+
+
+/* ========================================
+   SECTION TITLE
+======================================== */
+
+.section-title {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.section-title > p {
+    color: #777;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.section-title h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(30px, 5vw, 55px);
+}
+
+.section-title h2 span {
+    color: #777;
+}
+
+.line {
+    width: 50px;
+    height: 2px;
+    background: #ffffff;
+    margin: 25px auto 0;
+}
+
+
+/* ========================================
+   GENERATIONS
+======================================== */
+
+.generations {
+    padding: 120px 7%;
+    background: #080808;
+}
+
+.console-grid {
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* Console card */
+
+.console-card {
+    position: relative;
+    min-height: 470px;
+    background: linear-gradient(145deg, #151515, #0c0c0c);
+    border: 1px solid #222;
+    border-radius: 14px;
+    overflow: hidden;
+    transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.console-card:hover {
+    transform: translateY(-10px);
+    border-color: #444;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+}
+
+/* Generation number */
+
+.generation-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #444;
+    font-family: "Orbitron", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 5;
+}
+
+
+/* ========================================
+   CONSOLE IMAGE
+======================================== */
+
+.console-image {
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glow behind image */
+
+.console-image::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(60, 90, 255, 0.12);
+    filter: blur(45px);
+    transition: 0.5s;
+}
+
+/* Actual console image */
+
+.console-image img {
+    position: relative;
+    z-index: 2;
+    width: 85%;
+    max-width: 260px;
+    height: 190px;
+    object-fit: contain;
+    filter: drop-shadow(0 25px 20px rgba(0,0,0,0.55));
+    transition:
+        transform 0.5s ease,
+        filter 0.5s ease;
+}
+
+/* Image hover */
+
+.console-card:hover .console-image img {
+    transform: translateY(-10px) scale(1.06);
+    filter: drop-shadow(0 35px 30px rgba(60,90,255,0.35));
+}
+
+.console-card:hover .console-image::before {
+    transform: scale(1.25);
+}
+
+
+/* ========================================
+   CONSOLE INFO
+======================================== */
+
+.console-info {
+    padding: 25px 28px 30px;
+}
+
+.console-info > span {
+    color: #666;
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.console-info h3 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 25px;
+    margin: 10px 0 12px;
+}
+
+.console-info p {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 45px;
+    margin-bottom: 22px;
+}
+
+/* Details button */
+
+.details-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    transition: 0.3s;
+}
+
+.details-btn:hover {
+    transform: translateX(5px);
+    color: #aaa;
+}
+
+
+/* ========================================
+   TIMELINE
+======================================== */
+
+.timeline-section {
+    padding: 120px 7%;
+    background: #050505;
+}
+
+.timeline {
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #252525;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    width: 50%;
+    position: relative;
+    padding: 25px 45px;
+}
+
+.timeline-item:nth-child(odd) {
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    margin-left: 50%;
+}
+
+/* Dot */
+
+.timeline-dot {
+    position: absolute;
+    top: 35px;
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot  { right: -5px; }
+.timeline-item:nth-child(even) .timeline-dot { left: -5px; }
+
+/* Content */
+
+.timeline-content span {
+    color: #666;
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.timeline-content h3 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 21px;
+    margin: 8px 0;
+}
+
+.timeline-content p {
+    color: #777;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   ABOUT
+======================================== */
+
+.about {
+    padding: 120px 7%;
+    background: #080808;
+}
+
+.about-box {
+    max-width: 1000px;
+    margin: auto;
+    padding: 70px;
+    text-align: center;
+    background: linear-gradient(145deg, #111, #080808);
+    border: 1px solid #222;
+    border-radius: 18px;
+}
+
+.about-box > p:first-child {
+    color: #666;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.about-box h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(35px, 5vw, 65px);
+    line-height: 1.1;
+    margin-bottom: 25px;
+}
+
+.about-text {
+    max-width: 600px;
+    margin: auto;
+    color: #777;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    padding: 60px 7%;
+    text-align: center;
+    background: #030303;
+    border-top: 1px solid #151515;
+}
+
+.footer-logo {
+    font-family: "Orbitron", sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+footer p {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+footer small {
+    color: #444;
+    font-size: 11px;
+}
+
+
+/* ========================================
+   MODAL
+======================================== */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 2000;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    padding: 45px;
+    background: linear-gradient(145deg, #171717, #0b0b0b);
+    border: 1px solid #333;
+    border-radius: 15px;
+    transform: translateY(30px);
+    transition: 0.3s;
+}
+
+.modal.active .modal-box {
+    transform: translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #222;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#modalYear {
+    color: #777;
+    font-family: "Orbitron", sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.modal-box h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 32px;
+    margin: 12px 0 15px;
+}
+
+#modalDescription {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+/* Specs */
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.spec-item {
+    padding: 15px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+}
+
+.spec-item strong {
+    display: block;
+    color: #555;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.spec-item span {
+    color: #ddd;
+    font-size: 12px;
+}
+
+
+/* ========================================
+   RESPONSIVE TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 60px;
+    }
+
+    .hero-content {
+        max-width: 750px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-console {
+        width: 100%;
+    }
+
+    .console-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVE MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: 70px;
+        padding: 0 5%;
+    }
+
+    .navbar nav {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        background: rgba(5,5,5,0.97);
+        border-bottom: 1px solid #222;
+    }
+
+    .navbar nav.active {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero {
+        padding: 120px 6% 80px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+        letter-spacing: -2px;
+    }
+
+    .hero-label {
+        letter-spacing: 3px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .controller {
+        width: 270px;
+        height: 155px;
+    }
+
+    .generations,
+    .timeline-section,
+    .about {
+        padding: 90px 5%;
+    }
+
+    .console-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .console-card {
+        min-height: auto;
+    }
+
+    .console-image {
+        height: 220px;
+    }
+
+    .console-image img {
+        width: 80%;
+        max-width: 240px;
+        height: 175px;
+    }
+
+    .timeline::before {
+        left: 10px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        margin-left: 0 !important;
+        padding: 25px 20px 25px 40px;
+        text-align: left !important;
+    }
+
+    .timeline-item .timeline-dot {
+        left: 5px !important;
+        right: auto !important;
+    }
+
+    .about-box {
+        padding: 45px 25px;
+    }
+
+    .specs {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-box {
+        padding: 35px 25px;
+    }
+
+}
+
+
+/* ========================================
+   FINAL POLISH / SAFETY OVERRIDES
+======================================== */
+
+html,
+body {
+    max-width: 100%;
+}
+
+/* Keyboard accessibility */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 4px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* Browser compatibility untuk mask */
+.hero::before {
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.console-image img {
+    object-position: center;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Kartu tetap sama tinggi */
+.console-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.console-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.console-info p {
+    flex: 1;
+}
+
+/* Modal di layar kecil */
+.modal {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.modal-box {
+    max-height: min(720px, calc(100vh - 40px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #444 transparent;
+}
+
+.modal-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 20px;
+}
+
+@media (max-width: 700px) {
+
+    .logo strong {
+        font-size: 12px;
+    }
+
+    .logo small {
+        font-size: 8px;
+        letter-spacing: 3px;
+    }
+
+    .hero-console {
+        min-height: 190px;
+    }
+
+    .console-glow {
+        width: 260px;
+        height: 260px;
+    }
+
+    .controller {
+        transform: rotate(-5deg) scale(.88);
+    }
+
+    .console-image {
+        padding: 10px 20px;
+    }
+
+    .console-image img {
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .timeline {
+        width: 100%;
+    }
+
+    .modal {
+        align-items: flex-start;
+        padding: 20px 12px;
+    }
+
+    .modal-box {
+        margin: auto 0;
+        max-height: calc(100vh - 40px);
+    }
+
+    .close-modal {
+        position: sticky;
+        float: right;
+        top: 0;
+        z-index: 3;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* ========================================
+   LOADING SCREEN
+======================================== */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(40, 80, 255, 0.18),
+            transparent 40%
+        ),
+        #050505;
+    z-index: 9999;
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease,
+        transform 0.8s ease;
+}
+
+.loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.06);
+    pointer-events: none;
+}
+
+.loader-inner {
+    position: relative;
+    z-index: 2;
+    width: min(420px, 88%);
+    text-align: center;
+}
+
+.loader-label {
+    color: #666;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+}
+
+/* Angka PS besar */
+
+.loader-ps {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(80px, 22vw, 140px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -4px;
+    background: linear-gradient(180deg, #ffffff, #555);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(60, 90, 255, 0.35));
+}
+
+.loader-title {
+    font-family: "Orbitron", sans-serif;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.loader-year {
+    display: block;
+    color: #666;
+    font-family: "Orbitron", sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-top: 8px;
+}
+
+/* Animasi ganti generasi */
+.loader-ps.swap,
+.loader-title.swap,
+.loader-year.swap {
+    animation: loaderSwap 0.5s ease;
+}
+
+@keyframes loaderSwap {
+    0%   { opacity: 0; transform: translateY(25px) scale(0.92); filter: blur(8px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Indikator step PS1 - PS5 */
+
+.loader-steps {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 35px 0 22px;
+}
+
+.loader-steps span {
+    padding: 6px 10px;
+    color: #444;
+    border: 1px solid #222;
+    border-radius: 4px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    transition: 0.4s;
+}
+
+.loader-steps span.done {
+    color: #aaa;
+    border-color: #444;
+}
+
+.loader-steps span.active {
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 18px rgba(80, 110, 255, 0.55);
+    transform: translateY(-3px);
+}
+
+/* Progress bar */
+
+.loader-bar {
+    width: 100%;
+    height: 3px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loader-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #3c5aff, #ffffff);
+    box-shadow: 0 0 15px rgba(60, 90, 255, 0.8);
+}
+
+.loader-percent {
+    margin-top: 14px;
+    color: #777;
+    font-family: "Orbitron", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.loader-skip {
+    margin-top: 28px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.loader-skip:hover {
+    color: #ffffff;
+}
+
+/* Simbol melayang di background */
+
+.loader-symbols {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.loader-symbols b {
+    position: absolute;
+    bottom: -60px;
+    font-size: 34px;
+    color: rgba(255, 255, 255, 0.07);
+    animation: loaderFloat 9s linear infinite;
+}
+
+.loader-symbols b:nth-child(1) { left: 8%;  animation-delay: 0s; }
+.loader-symbols b:nth-child(2) { left: 22%; animation-delay: 2s;   font-size: 46px; }
+.loader-symbols b:nth-child(3) { left: 37%; animation-delay: 4s; }
+.loader-symbols b:nth-child(4) { left: 52%; animation-delay: 1s;   font-size: 40px; }
+.loader-symbols b:nth-child(5) { left: 66%; animation-delay: 3s; }
+.loader-symbols b:nth-child(6) { left: 78%; animation-delay: 5s;   font-size: 50px; }
+.loader-symbols b:nth-child(7) { left: 88%; animation-delay: 2.5s; }
+.loader-symbols b:nth-child(8) { left: 95%; animation-delay: 6s;   font-size: 38px; }
+
+@keyframes loaderFloat {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+@media (max-width: 700px) {
+    .loader-steps { gap: 6px; }
+    .loader-steps span { padding: 5px 8px; }
+}
+
+
+/* ========================================
+   PLAYSTATION STORY & GAMES
+======================================== */
+
+.history-section {
+    padding: 120px 7%;
+    background: #080808; /* FIX: beda warna dari Timeline (#050505) */
+}
+
+/* Origin story */
+
+.origin-story {
+    max-width: 1200px;
+    margin: 0 auto 100px;
+    display: grid;
+    grid-template-columns:
+        minmax(300px, 0.9fr)
+        minmax(300px, 1.1fr);
+    gap: 70px;
+    align-items: center;
+}
+
+.origin-image {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle,
+            rgba(60, 90, 255, 0.12),
+            transparent 60%
+        );
+    border: 1px solid #1d1d1d;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.origin-image::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(60, 90, 255, 0.13);
+    filter: blur(60px);
+}
+
+.origin-image img {
+    position: relative;
+    z-index: 2;
+    width: 85%;
+    max-width: 380px;
+    height: 280px;
+    object-fit: contain;
+    filter: drop-shadow(0 30px 30px rgba(0,0,0,0.7));
+    transition: 0.5s ease;
+}
+
+.origin-image:hover img {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.origin-content {
+    max-width: 650px;
+}
+
+.story-year {
+    color: #666;
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.origin-content h3 {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(30px, 4vw, 50px);
+    line-height: 1.1;
+    margin: 15px 0 25px;
+}
+
+.origin-content p {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 16px;
+}
+
+/* Story stats */
+
+.story-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.story-stats div {
+    padding: 18px;
+    background: #0c0c0c;
+    border: 1px solid #202020;
+    border-radius: 10px;
+}
+
+.story-stats strong {
+    display: block;
+    font-family: "Orbitron", sans-serif;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.story-stats span {
+    color: #666;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Generation history */
+
+.generation-history {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.history-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #121212, #090909);
+    border: 1px solid #202020;
+    border-radius: 15px;
+    overflow: hidden;
+    transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.history-card:hover {
+    transform: translateY(-7px);
+    border-color: #3a3a3a;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+}
+
+.history-card-image {
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(60,90,255,0.12),
+            transparent 65%
+        );
+}
+
+.history-card-image img {
+    width: 80%;
+    height: 180px;
+    max-width: 280px;
+    object-fit: contain;
+    filter: drop-shadow(0 25px 20px rgba(0,0,0,0.6));
+    transition: transform 0.5s ease;
+}
+
+.history-card:hover .history-card-image img {
+    transform: scale(1.07) translateY(-7px);
+}
+
+.history-card-content {
+    padding: 28px;
+}
+
+.history-card-content > span {
+    color: #666;
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.history-card-content h3 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 25px;
+    margin: 10px 0 15px;
+}
+
+.history-card-content p {
+    color: #858585;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.history-card-content h4 {
+    color: #aaa;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+/* Game list */
+
+.game-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.game-list span {
+    padding: 8px 11px;
+    color: #aaa;
+    background: #151515;
+    border: 1px solid #252525;
+    border-radius: 5px;
+    font-size: 10px;
+    transition: 0.25s ease;
+}
+
+.game-list span:hover {
+    color: #ffffff;
+    border-color: #444;
+    background: #1c1c1c;
+    transform: translateY(-2px);
+}
+
+/* Story responsive */
+
+@media (max-width: 900px) {
+
+    .origin-story {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .origin-image {
+        min-height: 320px;
+    }
+
+    .generation-history {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .history-section {
+        padding: 90px 5%;
+    }
+
+    .origin-image {
+        min-height: 270px;
+    }
+
+    .origin-image img {
+        width: 90%;
+        height: 210px;
+    }
+
+    .origin-content h3 {
+        font-size: 30px;
+    }
+
+    .origin-content p {
+        font-size: 13px;
+    }
+
+    .story-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .history-card-image {
+        height: 210px;
+    }
+
+    .history-card-image img {
+        height: 165px;
+    }
+
+    .history-card-content {
+        padding: 22px;
+    }
+
+    .history-card-content h3 {
+        font-size: 22px;
+    }
+
+    .game-list span {
+        font-size: 9px;
+    }
+
+}
+
+
+/* ========================================
+   SCROLL REVEAL  (FIX: pengganti style inline di JS)
+   Harus di paling bawah supaya transition-nya
+   menggantikan transition bawaan kartu.
+======================================== */
+
+.reveal {
+    transition:
+        opacity 0.7s ease,
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.reveal:not(.visible) {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+
+/* ========================================
+   URUTAN SECTION (warna latar berselang-seling)
+======================================== */
+
+.about {
+    background: #050505;
+}
+
+/* Kartu ke-5 (PS5) melebar penuh */
+.history-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+
+/* ========================================
+   FITUR INTERAKTIF (dipakai script.js)
+======================================== */
+
+/* Menu aktif */
+
+.navbar nav a.active {
+    color: #ffffff;
+}
+
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+/* Scroll progress bar */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3c5aff, #ffffff);
+    box-shadow: 0 0 12px rgba(60, 90, 255, 0.8);
+    z-index: 1100;
+    pointer-events: none;
+}
+
+/* Tombol kembali ke atas */
+
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: 0.3s;
+    z-index: 900;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* Game chip bisa diklik */
+
+.game-list span {
+    cursor: pointer;
+}
+
+.game-list span.selected {
+    color: #ffffff;
+    border-color: #3c5aff;
+    background: rgba(60, 90, 255, 0.15);
+    box-shadow: 0 0 14px rgba(60, 90, 255, 0.35);
+}
+
+/* Daftar game di modal */
+
+.modal-games {
+    margin-top: 22px;
+}
+
+.modal-games h4 {
+    color: #aaa;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+/* Easter egg */
+
+.playstation-easter-egg .controller {
+    animation: psEasterEgg 0.6s ease 4;
+}
+
+@keyframes psEasterEgg {
+    0%   { filter: hue-rotate(0deg) brightness(1); }
+    50%  { filter: hue-rotate(180deg) brightness(1.6); transform: rotate(-8deg) scale(1.08); }
+    100% { filter: hue-rotate(360deg) brightness(1); }
+}
+
+@media (max-width: 700px) {
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+    }
+}
