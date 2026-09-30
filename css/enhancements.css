@@ -1,0 +1,90 @@
+/* =========================================================
+   enhancements.css  -  tempel di BAWAH style.css
+   (atau <link> setelah style.css)
+========================================================= */
+
+/* Prev / Next di modal */
+
+.modal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+}
+
+.modal-nav button {
+    padding: 9px 16px;
+    background: #151515;
+    color: #ffffff;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-nav button:hover:not(:disabled) {
+    background: #ffffff;
+    color: #000000;
+}
+
+.modal-nav button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.modal-counter {
+    color: #666;
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* Placeholder kalau gambar konsol tidak ditemukan */
+
+.img-missing img {
+    display: none;
+}
+
+.img-missing::after {
+    content: attr(data-label);
+    position: relative;
+    z-index: 2;
+    padding: 28px 36px;
+    color: #555;
+    border: 1px dashed #333;
+    border-radius: 10px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+/* Fokus keyboard untuk chip game */
+
+.game-list span:focus-visible {
+    outline: 2px solid #3c5aff;
+    outline-offset: 2px;
+}
+
+/* Tombol prev/next di layar kecil */
+
+@media (max-width: 700px) {
+    .modal-nav button {
+        padding: 9px 12px;
+    }
+}
+
+/* Loader ikut menghormati reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-symbols {
+        display: none;
+    }
+
+    .reveal:not(.visible) {
+        transform: none;
+    }
+}

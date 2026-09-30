@@ -1,0 +1,163 @@
+/* =========================================================
+   animations.css  -  muat SETELAH style.css (dan enhancements.css)
+========================================================= */
+
+/* ---------- 1. SLIDE SAAT SCROLL (memperluas .reveal lama) ---------- */
+
+.reveal {
+    transition:
+        opacity 0.8s ease,
+        transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+/* setelah animasi masuk selesai, hover kartu kembali cepat */
+.reveal.settled {
+    transition:
+        opacity 0.3s ease,
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.reveal.from-left:not(.visible)  { transform: translateX(-80px); }
+.reveal.from-right:not(.visible) { transform: translateX(80px); }
+.reveal.from-zoom:not(.visible)  { transform: translateY(30px) scale(0.92); }
+
+/* elemen tambahan (judul section, statistik, footer, dll) */
+
+.sl {
+    transition:
+        opacity 0.8s ease var(--d, 0s),
+        transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0s);
+}
+
+.sl:not(.in)         { opacity: 0; }
+.sl-up:not(.in)      { transform: translateY(40px); }
+.sl-left:not(.in)    { transform: translateX(-80px); }
+.sl-right:not(.in)   { transform: translateX(80px); }
+.sl-line:not(.in)    { transform: scaleX(0); }
+
+/* titik timeline muncul membesar */
+
+.timeline-dot {
+    transition: transform 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) 0.3s;
+}
+
+.timeline-item.reveal:not(.visible) .timeline-dot {
+    transform: scale(0);
+}
+
+
+/* ---------- 2. HERO & NAVBAR MASUK SAAT LOADING SELESAI ---------- */
+
+@keyframes slideUpIn {
+    from { opacity: 0; transform: translateY(45px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes slideRightIn {
+    from { opacity: 0; transform: translateX(90px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes slideDownIn {
+    from { transform: translateY(-100%); }
+    to   { transform: none; }
+}
+
+.anim-init .navbar {
+    animation: slideDownIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards paused;
+}
+
+.anim-init .hero-label,
+.anim-init .hero h1,
+.anim-init .hero-description,
+.anim-init .hero-buttons {
+    animation: slideUpIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) backwards paused;
+}
+
+.anim-init .hero-label       { animation-delay: 0.15s; }
+.anim-init .hero h1          { animation-delay: 0.30s; }
+.anim-init .hero-description { animation-delay: 0.45s; }
+.anim-init .hero-buttons     { animation-delay: 0.60s; }
+
+.anim-init .hero-console {
+    animation: slideRightIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s backwards paused;
+}
+
+.anim-ready .navbar,
+.anim-ready .hero-label,
+.anim-ready .hero h1,
+.anim-ready .hero-description,
+.anim-ready .hero-buttons,
+.anim-ready .hero-console {
+    animation-play-state: running;
+}
+
+
+/* ---------- 3. SLIDE ANTAR KONSOL DI MODAL ---------- */
+
+@keyframes modalInNext {
+    from { opacity: 0; transform: translateX(45px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes modalInPrev {
+    from { opacity: 0; transform: translateX(-45px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes modalInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+}
+
+#modalYear { display: inline-block; }
+
+.modal-box.swap-next #modalYear,
+.modal-box.swap-next #modalTitle,
+.modal-box.swap-next .modal-games {
+    animation: modalInNext 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.modal-box.swap-prev #modalYear,
+.modal-box.swap-prev #modalTitle,
+.modal-box.swap-prev .modal-games {
+    animation: modalInPrev 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.modal-box.swap-up #modalYear,
+.modal-box.swap-up #modalTitle,
+.modal-box.swap-up .modal-games {
+    animation: modalInUp 0.45s ease backwards;
+}
+
+
+/* ---------- 4. LAYAR KECIL & REDUCED MOTION ---------- */
+
+@media (max-width: 900px) {
+    .reveal.from-left:not(.visible),
+    .sl-left:not(.in)  { transform: translateX(-40px); }
+
+    .reveal.from-right:not(.visible),
+    .sl-right:not(.in) { transform: translateX(40px); }
+}
+
+@media (max-width: 700px) {
+    /* timeline satu kolom: semua masuk dari kiri */
+    .timeline-item.from-right:not(.visible) { transform: translateX(-40px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal.from-left:not(.visible),
+    .reveal.from-right:not(.visible),
+    .reveal.from-zoom:not(.visible),
+    .sl-up:not(.in),
+    .sl-left:not(.in),
+    .sl-right:not(.in),
+    .sl-line:not(.in) {
+        transform: none;
+    }
+}
